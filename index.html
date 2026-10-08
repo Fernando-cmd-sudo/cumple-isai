@@ -438,47 +438,71 @@ $('#sopa').onclick=e=>{
 };
 
 /* ---------- Rockola con 5 monedas + audio en la misma página ---------- */
-/* Coloca los MP3 en la carpeta audio/ con estos nombres.
+/* Coloca los MP3 en la carpeta audio/ con estos nombres exactos.
    El navegador detendrá el audio al cerrar/abandonar la página. */
-const CANCIONES=[
- {t:'Ni tú ni nadie',a:'Moenia',src:'audio/ni-tu-ni-nadie.mp3'}
- // Agrega más: {t:'Canción',a:'Artista',src:'audio/cancion.mp3'}
+const CANCIONES = [
+  { t: 'Ni tú ni nadie', a: 'Moenia', src: 'audio/Moenia - Ni Tu Ni Nadie.mp3' },
+  { t: 'Afuera', a: 'Caifanes', src: 'audio/Caifanes - Afuera (Cover Audio).mp3' },
+  { t: 'Don', a: 'Miranda!', src: 'audio/Miranda! - Don (Video Oficial).mp3' },
+  { t: 'El Profe', a: 'Miranda!', src: 'audio/Miranda! - El Profe (Video Oficial).mp3' },
+  { t: 'Mentía', a: 'Miranda!', src: 'audio/Miranda! - Mentía (Video Oficial).mp3' },
+  { t: 'Perfecta', a: 'Miranda!', src: 'audio/Miranda! - Perfecta (Video Oficial).mp3' }
 ];
-let monedas=0, audioActual=null, cancionActual=null;
-$('#songs').innerHTML=CANCIONES.map((s,i)=>`
+
+let monedas = 0, audioActual = null, cancionActual = null;
+
+// Genera la lista de canciones automáticamente en el HTML
+\$('#songs').innerHTML = CANCIONES.map((s, i) => `
  <div class="song" data-i="${i}">
    <span><b>${s.t}</b><br>${s.a}</span>
    <button class="play" data-i="${i}">▶ Reproducir</button>
  </div>`).join('');
-function actualizarCreditos(){
- $('#creditos').textContent=`🪙 ${monedas} / 5 monedas`;
+
+function actualizarCreditos() {
+  \$('#creditos').textContent = `🪙 ${monedas} / 5 monedas`;
 }
-$('#moneda').onclick=()=>{
- if(monedas<5)monedas++;
- actualizarCreditos();
- if(monedas===5)$('#rockMsg').textContent='¡Listo! Ya puedes escoger una canción.';
+
+// Botón para meter monedas
+\$('#moneda').onclick = () => {
+  if (monedas < 5) monedas++;
+  actualizarCreditos();
+  if (monedas === 5) \$('#rockMsg').textContent = '¡Listo! Ya puedes escoger una canción.';
 };
-$('#songs').onclick=e=>{
- const b=e.target.closest('.play');if(!b)return;
- if(monedas<5){$('#rockMsg').textContent='Primero mete las 5 monedas 🪙';return}
- const s=CANCIONES[+b.dataset.i];
- if(audioActual){audioActual.pause();audioActual.currentTime=0}
- audioActual=new Audio(s.src);
- audioActual.volume=.9;
- audioActual.play().then(()=>{
-   document.querySelectorAll('.song').forEach(x=>x.classList.remove('active'));
-   b.closest('.song').classList.add('active');
-   $('#disco').classList.add('on');
-   $('#rockMsg').textContent='Sonando: '+s.t+' — '+s.a;
- }).catch(()=>{
-   $('#rockMsg').textContent='No se encontró el MP3. Revisa la carpeta audio/.';
- });
- audioActual.onended=()=>{
-   $('#disco').classList.remove('on');
-   b.closest('.song').classList.remove('active');
- };
+
+// Delegación de eventos para reproducir canciones
+\$('#songs').onclick = e => {
+  const b = e.target.closest('.play'); if (!b) return;
+  if (monedas < 5) { \$('#rockMsg').textContent = 'Primero mete las 5 monedas 🪙'; return; }
+  
+  const s = CANCIONES[+b.dataset.i];
+  
+  if (audioActual) { audioActual.pause(); audioActual.currentTime = 0; }
+  
+  audioActual = new Audio(s.src);
+  audioActual.volume = .9;
+  
+  audioActual.play().then(() => {
+    document.querySelectorAll('.song').forEach(x => x.classList.remove('active'));
+    b.closest('.song').classList.add('active');
+    \$('#disco').classList.add('on');
+    \$('#rockMsg').textContent = 'Sonando: ' + s.t + ' — ' + s.a;
+  }).catch((error) => {
+    console.error("Error al reproducir:", error);
+    \$('#rockMsg').textContent = 'No se encontró el MP3. Revisa la carpeta audio/.';
+  });
+  
+  audioActual.onended = () => {
+    \$('#disco').classList.remove('on');
+    b.closest('.song').classList.remove('active');
+    \$('#rockMsg').textContent = 'Canción finalizada. ¡Mete más monedas para otra!';
+    monedas = 0; 
+    actualizarCreditos();
+  };
 };
-addEventListener('pagehide',()=>{if(audioActual){audioActual.pause();audioActual.src=''}});
+
+// Apaga el audio si abandonan la pestaña
+addEventListener('pagehide', () => { if (audioActual) { audioActual.pause(); audioActual.src = ''; } });
+
 
 /* ---------- Arizona interactiva ---------- */
 const SAB=[['Mucho Mango','🥭'],['Sandía','🍉'],['Fruit Punch','🍹'],['Limonada','🍋'],['Uva','🍇'],['Kiwi fresa','🥝']];
