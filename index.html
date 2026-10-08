@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Feliz cumpleaños, Isai 🐸</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Chewy&family=Nunito:wght@400;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--noche:#10241a;--hoja:#1b3a29;--rana:#9be15d;--cafe:#c8854a;--rosa:#ff6f91;--sol:#ffd23f;--txt:#eaf7e0}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--noche);color:var(--txt);font:400 1.05rem/1.6 Nunito,system-ui,sans-serif}
+h1,h2{font-family:Chewy,'Comic Sans MS',cursive;font-weight:400;margin:0 0 .4em;line-height:1.1}
+h1{font-size:clamp(2.4rem,9vw,4.5rem);color:var(--rana)}
+h2{font-size:clamp(1.8rem,6vw,2.6rem);color:var(--sol)}
+section{max-width:780px;margin:0 auto;padding:56px 20px}
+button{font:800 1rem Nunito,sans-serif;cursor:pointer;border:0;border-radius:999px;padding:.7em 1.4em;background:var(--rana);color:#10241a}
+button:hover{background:var(--sol)}
+button:focus-visible,.card:focus-visible,.cell:focus-visible{outline:3px solid var(--sol);outline-offset:3px}
+#cf{position:fixed;inset:0;pointer-events:none;z-index:9}
+.hero{min-height:100svh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:10px}
+.hero svg{width:min(78vw,300px);height:auto}
+.flame{fill:var(--sol);transform-origin:center bottom;transform-box:fill-box;animation:fl .5s infinite alternate;cursor:pointer}
+.flame.off{opacity:0;animation:none;transition:opacity .4s}
+@keyframes fl{to{transform:scale(1.15,.9) rotate(4deg)}}
+.hero p{margin:0;max-width:34ch}
+#hola{animation:pop .6s}
+@keyframes pop{from{transform:scale(.6);opacity:0}}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:14px}
+.card{perspective:700px;height:160px;cursor:pointer;background:none;border:0}
+.card i{position:absolute;inset:0;border-radius:18px;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:12px;text-align:center;font-style:normal;backface-visibility:hidden;transition:transform .5s}
+.card{position:relative;display:block;width:100%}
+.card .fr{background:var(--hoja);border:2px solid var(--rana);font-size:2.4rem}
+.card .fr b{font:400 1.15rem Chewy,cursive;color:var(--txt)}
+.card .bk{background:var(--rosa);color:#2a0d15;font-size:.92rem;font-weight:700;transform:rotateY(180deg)}
+.card.v .fr{transform:rotateY(180deg)}
+.card.v .bk{transform:rotateY(0)}
+.slot{position:relative;aspect-ratio:4/3;border-radius:16px;overflow:hidden;background:var(--hoja);display:grid;place-items:center;font-size:4rem}
+.slot.wide{aspect-ratio:2/1}
+.slot img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.slot svg{width:70%;height:auto}
+figure{margin:0;background:#f4f4ee;color:#1b2a20;padding:12px 12px 6px;border-radius:6px;transform:rotate(-2deg);box-shadow:0 10px 30px #0006}
+figcaption{font:400 1.2rem Chewy,cursive;text-align:center;padding:8px 0}
+.pol{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:28px;margin-top:28px}
+.pol figure:nth-child(2){transform:rotate(2deg)}
+#sopa{display:grid;grid-template-columns:repeat(8,1fr);gap:4px;max-width:420px;margin:18px 0}
+.cell{aspect-ratio:1;display:grid;place-items:center;background:var(--hoja);border-radius:8px;font:800 1.15rem Nunito;cursor:pointer;user-select:none;border:0;color:var(--txt);padding:0}
+.cell.sel{background:var(--sol);color:#10241a}
+.cell.ok{background:var(--rana);color:#10241a}
+#pal span{display:inline-block;margin:3px;padding:.2em .8em;border-radius:99px;background:var(--hoja)}
+#pal span.ok{background:var(--rana);color:#10241a;text-decoration:line-through}
+.rock{background:var(--hoja);border-radius:20px;padding:20px}
+.disco{width:84px;height:84px;border-radius:50%;background:repeating-radial-gradient(#111 0 3px,#222 3px 6px);border:6px solid var(--rosa);margin:0 auto 14px;position:relative}
+.disco:after{content:"";position:absolute;inset:30px;border-radius:50%;background:var(--sol)}
+.disco.on{animation:giro 1.2s linear infinite}
+@keyframes giro{to{transform:rotate(360deg)}}
+.song{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:10px 0;border-top:1px solid #ffffff22}
+.song a{color:#10241a;background:var(--rana);padding:.4em 1em;border-radius:99px;text-decoration:none;font-weight:800;white-space:nowrap}
+.sabores{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0}
+.sabores button{background:var(--hoja);color:var(--txt);border:2px solid var(--rana)}
+.sabores button.a{background:var(--rosa);color:#2a0d15;border-color:var(--rosa)}
+#lata{font-size:4rem;transition:transform .3s}
+.baile{font-size:3.4rem;text-align:center;margin:14px 0}
+.baile span{display:inline-block}
+.baile.on span{animation:bai .6s infinite alternate}
+.baile.on span:nth-child(2n){animation-delay:.3s}
+@keyframes bai{from{transform:rotate(-14deg) translateY(0)}to{transform:rotate(14deg) translateY(-14px)}}
+.carta{background:var(--sol);color:#2a2105;border-radius:20px;padding:28px;font-size:1.2rem;text-align:center}
+.carta h2{color:#2a2105}
+footer{text-align:center;padding:40px 20px 60px;opacity:.8}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<canvas id="cf"></canvas>
+
+<header class="hero">
+  <h1>Isai cumple 20 🐸</h1>
+  <svg viewBox="0 0 240 230" role="img" aria-label="Pastel con velitas">
+    <ellipse cx="120" cy="212" rx="105" ry="12" fill="#0006"/>
+    <rect x="35" y="140" width="170" height="68" rx="14" fill="#c8854a"/>
+    <rect x="55" y="92" width="130" height="54" rx="12" fill="#ff6f91"/>
+    <path d="M55 106q15 18 30 0t30 0 30 0 30 0 10 0v-8q0-6-6-6H61q-6 0-6 6z" fill="#fff"/>
+    <path d="M35 156q17 20 34 0t34 0 34 0 34 0 29 0v-8q0-8-8-8H43q-8 0-8 8z" fill="#fff"/>
+    <text x="120" y="190" text-anchor="middle" font-family="Chewy,cursive" font-size="34" fill="#fff">20</text>
+    <g fill="#9be15d"><rect x="86" y="58" width="9" height="36" rx="3"/><rect x="116" y="52" width="9" height="42" rx="3"/><rect x="146" y="58" width="9" height="36" rx="3"/></g>
+    <path class="flame" d="M90 56c-8-10 0-18 0-24 8 6 8 16 0 24z"/>
+    <path class="flame" d="M120 50c-8-10 0-18 0-24 8 6 8 16 0 24z"/>
+    <path class="flame" d="M150 56c-8-10 0-18 0-24 8 6 8 16 0 24z"/>
+  </svg>
+  <button id="soplar">Soplar las velitas</button>
+  <p id="hola" hidden><b>¡Feliz cumpleaños, ranita!</b><br>Baja, hay cosas hechas para ti. ⬇</p>
+</header>
+
+<main hidden>
+<section>
+  <h2>Lo que te gusta</h2>
+  <p>Toca cada carta para voltearla.</p>
+  <div class="grid" id="cards"></div>
+  <div class="pol">
+    <figure>
+      <!-- FOTO DE MIS OJOS: borra solo la siguiente línea <img> si no quieres foto. El recuadro conserva su tamaño y nada se mueve. -->
+      <div class="slot wide">👀<img src="ojos.jpg" alt="Mis ojos cafés" onerror="this.remove()"></div>
+      <figcaption>Mis ojos cafés 😛</figcaption>
+    </figure>
+    <figure>
+      <!-- FOTO DEL GATO: guarda la foto como gato.jpg junto a index.html. Si no existe (o borras la línea <img>), se ve el gatito dibujado. -->
+      <div class="slot">
+        <svg viewBox="0 0 120 110" aria-hidden="true"><path d="M20 40 24 6 48 26zM100 40 96 6 72 26z" fill="#8f979c"/><ellipse cx="60" cy="62" rx="44" ry="40" fill="#a9b1b6"/><path d="M60 24v16M46 28l4 12M74 28l-4 12M18 60h14M18 72h14M102 60H88M102 72H88" stroke="#2b2f33" stroke-width="5" stroke-linecap="round"/><ellipse cx="44" cy="60" rx="6" ry="8" fill="#10241a"/><ellipse cx="76" cy="60" rx="6" ry="8" fill="#10241a"/><path d="M55 76h10l-5 6z" fill="#ff6f91"/></svg>
+        <img src="gato.jpg" alt="Tu gatito" onerror="this.remove()">
+      </div>
+      <figcaption>Un gatito gris con rayas negras 🐱</figcaption>
+    </figure>
+  </div>
+</section>
+
+<section>
+  <h2>Sopa de letras</h2>
+  <p>Toca las letras en orden, una junto a otra. Encuentra las 6 palabras.</p>
+  <div id="sopa"></div>
+  <div id="pal"></div>
+  <p id="ganaste" hidden><b>¡Las encontraste todas! 🎉</b></p>
+</section>
+
+<section>
+  <h2>La rockola</h2>
+  <div class="rock">
+    <div class="disco" id="disco"></div>
+    <p style="text-align:center;margin-top:0">Rock en español, el favorito.</p>
+    <div id="songs"></div>
+    <p style="text-align:center"><button id="moneda">🪙 Meter moneda</button></p>
+  </div>
+</section>
+
+<section>
+  <h2>¿Con cuál Arizona brindamos?</h2>
+  <p>Todos los sabores, menos té negro ni té verde.</p>
+  <div style="text-align:center"><div id="lata">🥫</div></div>
+  <div class="sabores" id="sabores"></div>
+  <p id="dijo" style="min-height:1.6em"></p>
+</section>
+
+<section>
+  <h2>Baile</h2>
+  <p>Siempre con coreografía, y los folclóricos, sobre todo los calabaceados.</p>
+  <div class="baile" id="baile"><span>💃</span><span>🕺</span><span>💃</span><span>🕺</span></div>
+  <p style="text-align:center"><button id="bailar">¡A bailar!</button></p>
+</section>
+
+<section>
+  <div class="carta">
+    <div style="font-size:3rem">💌</div>
+    <button id="abrir">Abrir mi carta</button>
+    <div id="msg" hidden>
+      <h2>Feliz cumpleaños, ranita</h2>
+      <p>Que te la pases bien hoy en tu día. Espero poder darte un mejor regalo cuando nos veamos. 💛🐸</p>
+    </div>
+  </div>
+</section>
+</main>
+<footer>Hecho con cariño para Isai</footer>
+
+<script>
+const $=s=>document.querySelector(s);
+/* ---------- Confeti ---------- */
+const cv=$('#cf'),cx=cv.getContext('2d');let ps=[],run=false;
+const fit=()=>{cv.width=innerWidth;cv.height=innerHeight};fit();addEventListener('resize',fit);
+function boom(){
+  if(matchMedia('(prefers-reduced-motion:reduce)').matches)return;
+  const cs=['#9be15d','#ff6f91','#ffd23f','#c8854a','#5fd0ff'];
+  for(let i=0;i<170;i++)ps.push({x:innerWidth/2,y:innerHeight*.5,vx:(Math.random()-.5)*15,vy:-Math.random()*15-3,s:5+Math.random()*7,c:cs[i%5],r:Math.random()*6});
+  if(run)return;run=true;
+  (function t(){
+    cx.clearRect(0,0,cv.width,cv.height);
+    ps.forEach(p=>{p.x+=p.vx;p.y+=p.vy;p.vy+=.3;p.r+=.2;cx.fillStyle=p.c;cx.save();cx.translate(p.x,p.y);cx.rotate(p.r);cx.fillRect(-p.s/2,-p.s/2,p.s,p.s*.6);cx.restore()});
+    ps=ps.filter(p=>p.y<cv.height+20);
+    if(ps.length)requestAnimationFrame(t);else{run=false;cx.clearRect(0,0,cv.width,cv.height)}
+  })();
+}
+/* ---------- Velitas ---------- */
+function soplar(){
+  if($('#soplar').hidden)return;
+  document.querySelectorAll('.flame').forEach(f=>f.classList.add('off'));
+  $('#soplar').hidden=true;$('#hola').hidden=false;$('main').hidden=false;boom();
+  setTimeout(()=>$('#hola').scrollIntoView({behavior:'smooth',block:'end'}),900);
+}
+$('#soplar').onclick=soplar;
+document.querySelectorAll('.flame').forEach(f=>f.onclick=soplar);
+/* ---------- Cartas (edita aquí los gustos) ---------- */
+const GUSTOS=[
+ ['🍥','Anime','Naruto, Los 7 pecados capitales y Kaiju No. 8.'],
+ ['🐱','Gatos','Un gatito gris con rayas negras es de la familia.'],
+ ['🎸','Rock en español','El género que más te gusta.'],
+ ['🎬','Cine mexicano','Los chicuarotes, Amarte duele y Perfume de violetas.'],
+ ['🌟','La tumba de las luciérnagas','Una película que se queda contigo.'],
+ ['🧩','Videojuegos','Puzzles y sopas de letras.'],
+ ['💃','Bailar','Con coreografía y bailes folclóricos, sobre todo calabaceados.'],
+ ['📚','Estudiar','Te gusta, y ya sabrás qué estudiar. Sin prisa.'],
+ ['🎪','El Increíble Mundo Digital','Has visto algunos capítulos, y Kinger es tu favorito.'],
+ ['🥤','Arizona','De todos los sabores, menos té negro y té verde.']
+];
+$('#cards').innerHTML=GUSTOS.map(g=>`<button class="card" aria-label="${g[1]}"><i class="fr">${g[0]}<b>${g[1]}</b></i><i class="bk">${g[2]}</i></button>`).join('');
+document.querySelectorAll('.card').forEach(c=>c.onclick=()=>c.classList.toggle('v'));
+/* ---------- Sopa de letras ---------- */
+const G=['NARUTOMR','KINGERPO','GATOSLEC','RANITAZK','BAILEXQV','ZYWUBHJD','PLMNKFSA','CDGHJXWT'];
+const W=['NARUTO','KINGER','GATOS','RANITA','BAILE','ROCK'];
+const rev=w=>w.split('').reverse().join('');
+$('#sopa').innerHTML=G.map((row,r)=>[...row].map((l,c)=>`<button class="cell" data-r="${r}" data-c="${c}">${l}</button>`).join('')).join('');
+$('#pal').innerHTML=W.map(w=>`<span id="w-${w}">${w}</span>`).join('');
+let sel=[],found=0;
+const prefijo=s=>W.some(w=>w.startsWith(s)||rev(w).startsWith(s));
+$('#sopa').onclick=e=>{
+  const c=e.target.closest('.cell');if(!c||c.classList.contains('ok'))return;
+  const r=+c.dataset.r,k=+c.dataset.c,l=sel[sel.length-1];
+  if(sel.some(x=>x.c===c)||(l&&Math.abs(l.r-r)+Math.abs(l.k-k)!==1))sel=[];
+  sel.push({r,k,c});
+  let s=sel.map(x=>x.c.textContent).join('');
+  if(!prefijo(s)){sel=[{r,k,c}];s=c.textContent;if(!prefijo(s))sel=[]}
+  document.querySelectorAll('.cell').forEach(x=>x.classList.remove('sel'));
+  sel.forEach(x=>x.c.classList.add('sel'));
+  const f=W.find(w=>w===s||rev(w)===s);
+  if(f){sel.forEach(x=>{x.c.classList.remove('sel');x.c.classList.add('ok')});$('#w-'+f).classList.add('ok');sel=[];
+    if(++found===W.length){$('#ganaste').hidden=false;boom()}}
+};
+/* ---------- Rockola (agrega canciones aquí) ---------- */
+const CANCIONES=[
+ {t:'Ni tú ni nadie',a:'Moenia'}
+ // ,{t:'Nombre de la canción',a:'Artista'}
+];
+$('#songs').innerHTML=CANCIONES.map(s=>`<div class="song"><span><b>${s.t}</b><br>${s.a}</span><a target="_blank" rel="noopener" href="https://www.youtube.com/results?search_query=${encodeURIComponent(s.t+' '+s.a)}">▶ Escuchar</a></div>`).join('');
+$('#moneda').onclick=()=>{$('#disco').classList.toggle('on')};
+/* ---------- Arizona ---------- */
+const SAB=[['Mucho Mango','🥭'],['Sandía','🍉'],['Fruit Punch','🍹'],['Limonada','🍋'],['Uva','🍇'],['Kiwi fresa','🥝']];
+$('#sabores').innerHTML=SAB.map((s,i)=>`<button data-i="${i}">${s[0]}</button>`).join('');
+$('#sabores').onclick=e=>{
+  const b=e.target.closest('button');if(!b)return;
+  document.querySelectorAll('#sabores button').forEach(x=>x.classList.remove('a'));b.classList.add('a');
+  const s=SAB[b.dataset.i];$('#lata').textContent=s[1];
+  $('#dijo').textContent='Isai eligió '+s[0]+'. ¡Salud! 🥤';
+};
+/* ---------- Baile ---------- */
+$('#bailar').onclick=()=>{const b=$('#baile');b.classList.toggle('on');$('#bailar').textContent=b.classList.contains('on')?'Parar':'¡A bailar!'};
+/* ---------- Carta ---------- */
+$('#abrir').onclick=()=>{$('#abrir').hidden=true;$('#msg').hidden=false;boom()};
+</script>
+</body>
+</html>
