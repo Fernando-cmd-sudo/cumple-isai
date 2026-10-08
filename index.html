@@ -45,8 +45,8 @@ figure{margin:0;background:#f4f4ee;color:#1b2a20;padding:12px 12px 6px;border-ra
 figcaption{font:400 1.2rem Chewy,cursive;text-align:center;padding:8px 0}
 .pol{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:28px;margin-top:28px}
 .pol figure:nth-child(2){transform:rotate(2deg)}
-#sopa{display:grid;grid-template-columns:repeat(8,1fr);gap:4px;max-width:420px;margin:18px 0}
-.cell{aspect-ratio:1;display:grid;place-items:center;background:var(--hoja);border-radius:8px;font:800 1.15rem Nunito;cursor:pointer;user-select:none;border:0;color:var(--txt);padding:0}
+#sopa{display:grid;grid-template-columns:repeat(12,1fr);gap:3px;max-width:520px;margin:18px auto}
+.cell{aspect-ratio:1;display:grid;place-items:center;background:var(--hoja);border-radius:6px;font:800 clamp(.68rem,2.5vw,1rem) Nunito;cursor:pointer;user-select:none;border:0;color:var(--txt);padding:0}
 .cell.sel{background:var(--sol);color:#10241a}
 .cell.ok{background:var(--rana);color:#10241a}
 #pal span{display:inline-block;margin:3px;padding:.2em .8em;border-radius:99px;background:var(--hoja)}
@@ -70,11 +70,159 @@ figcaption{font:400 1.2rem Chewy,cursive;text-align:center;padding:8px 0}
 .carta{background:var(--sol);color:#2a2105;border-radius:20px;padding:28px;font-size:1.2rem;text-align:center}
 .carta h2{color:#2a2105}
 footer{text-align:center;padding:40px 20px 60px;opacity:.8}
+@media (max-width:650px){.pol{grid-template-columns:1fr}.balloon{width:48px;height:60px}}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+
+/* ---------- Globos flotantes ---------- */
+#globos{
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  overflow:hidden;
+  z-index:8;
+}
+.balloon{
+  position:absolute;
+  width:58px;
+  height:72px;
+  border-radius:50% 50% 45% 45%;
+  pointer-events:auto;
+  cursor:pointer;
+  box-shadow:inset -9px -10px 0 #0002, inset 7px 5px 0 #fff3, 0 8px 14px #0002;
+  animation:flotar var(--dur,12s) ease-in-out infinite alternate;
+}
+.balloon:after{
+  content:"";
+  position:absolute;
+  left:50%;
+  top:70px;
+  width:2px;
+  height:var(--cord,110px);
+  background:#ffffffaa;
+  transform:translateX(-50%);
+}
+.balloon.tied{
+  animation:none;
+  transform:translate(-50%,-50%);
+}
+.balloon.tied:before{
+  content:"";
+  position:absolute;
+  left:50%;
+  bottom:-6px;
+  width:10px;
+  height:10px;
+  background:inherit;
+  transform:translateX(-50%) rotate(45deg);
+}
+.balloon.flying{
+  pointer-events:none;
+  animation:volar 2.8s cubic-bezier(.2,.7,.2,1) forwards;
+}
+@keyframes flotar{
+  0%{transform:translate(0,0) rotate(-4deg)}
+  50%{transform:translate(var(--dx,25px),-35px) rotate(5deg)}
+  100%{transform:translate(calc(var(--dx,25px)*-1),-75px) rotate(-5deg)}
+}
+@keyframes volar{
+  to{transform:translate(var(--vx,120px),-110vh) rotate(25deg);opacity:.15}
+}
+.balloon:nth-child(1){background:#ff6f91}
+.balloon:nth-child(2){background:#ffd23f}
+.balloon:nth-child(3){background:#5fd0ff}
+.balloon:nth-child(4){background:#9be15d}
+.balloon:nth-child(5){background:#c8854a}
+.balloon:nth-child(6){background:#b78cff}
+.balloon:nth-child(7){background:#ff8f66}
+.balloon:nth-child(8){background:#67d8c0}
+
+/* ---------- Imágenes de gustos ---------- */
+.gusto-img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  border-radius:12px;
+}
+.gusto-card .fr img{
+  width:70px;height:70px;object-fit:cover;border-radius:14px;margin-bottom:5px;
+}
+.gusto-card .bk img{
+  width:100%;height:90px;object-fit:cover;border-radius:10px;margin-bottom:6px;
+}
+
+/* ---------- Lata interactiva ---------- */
+#lata-wrap{
+  display:grid;
+  place-items:center;
+  margin:18px 0;
+}
+#lata{
+  position:relative;
+  display:grid;
+  place-items:center;
+  width:105px;
+  height:150px;
+  font-size:0;
+  border-radius:20px 20px 16px 16px;
+  background:linear-gradient(90deg,#d9d9d9,#fff 18%,#d6d6d6 80%,#aaa);
+  border:3px solid #777;
+  box-shadow:inset -10px 0 15px #0002,0 12px 22px #0004;
+  cursor:pointer;
+  user-select:none;
+  transform-origin:50% 90%;
+}
+#lata:before{
+  content:"ARIZONA";
+  position:absolute;
+  top:43px;
+  left:7px;
+  right:7px;
+  padding:5px 2px;
+  border-radius:6px;
+  background:#ff6f91;
+  color:#fff;
+  font:800 13px Nunito,sans-serif;
+  transform:rotate(-4deg);
+}
+#lata:after{
+  content:"";
+  position:absolute;
+  top:8px;
+  left:13px;
+  right:13px;
+  height:18px;
+  border-radius:50%;
+  background:linear-gradient(#888,#eee 45%,#aaa);
+  box-shadow:inset 0 3px 4px #0005;
+}
+#lata.abierta{transform:rotate(-7deg) translateY(-4px)}
+#lata.abierta:after{transform:rotate(-18deg) translate(-8px,-4px);transform-origin:75% 50%}
+#lata.pulse{animation:lataPulse .35s ease}
+@keyframes lataPulse{50%{transform:scale(1.08) rotate(3deg)}}
+
+/* ---------- Rockola local ---------- */
+.song button.play{
+  background:var(--rana);color:#10241a;border:0;border-radius:99px;padding:.4em 1em;font-weight:800;cursor:pointer;
+}
+.song.active{background:#ffffff12;border-radius:12px;padding-left:10px;padding-right:10px}
+
 </style>
+
+<!--
+ARCHIVOS QUE DEBES PONER JUNTO A index.html:
+  ojos.jpg
+  gato1.jpg
+  gato2.jpg
+  img/naruto.jpg, img/gatos.jpg, img/rock.jpg, img/cine.jpg,
+  img/tumba.jpg, img/videojuegos.jpg, img/baile.jpg, img/estudiar.jpg,
+  img/digital.jpg, img/arizona.jpg
+  audio/ni-tu-ni-nadie.mp3
+Los nombres se pueden cambiar directamente en GUSTOS y CANCIONES.
+-->
 </head>
 <body>
 <canvas id="cf"></canvas>
+<div id="globos" aria-hidden="true"></div>
 
 <header class="hero">
   <h1>Isai cumple 16 🐸</h1>
@@ -101,24 +249,29 @@ footer{text-align:center;padding:40px 20px 60px;opacity:.8}
   <div class="grid" id="cards"></div>
   <div class="pol">
     <figure>
-      <!-- FOTO DE MIS OJOS: borra solo la siguiente línea <img> si no quieres foto. El recuadro conserva su tamaño y nada se mueve. -->
-      <div class="slot wide">👀<img src="ojos.jpg" alt="Mis ojos cafés" onerror="this.remove()"></div>
+      <div class="slot wide"><img src="ojos.jpg" alt="Mis ojos cafés" onerror="this.remove()"><span>👀</span></div>
       <figcaption>Mis ojos cafés 😛</figcaption>
     </figure>
     <figure>
-      <!-- FOTO DEL GATO: guarda la foto como gato.jpg junto a index.html. Si no existe (o borras la línea <img>), se ve el gatito dibujado. -->
       <div class="slot">
-        <svg viewBox="0 0 120 110" aria-hidden="true"><path d="M20 40 24 6 48 26zM100 40 96 6 72 26z" fill="#8f979c"/><ellipse cx="60" cy="62" rx="44" ry="40" fill="#a9b1b6"/><path d="M60 24v16M46 28l4 12M74 28l-4 12M18 60h14M18 72h14M102 60H88M102 72H88" stroke="#2b2f33" stroke-width="5" stroke-linecap="round"/><ellipse cx="44" cy="60" rx="6" ry="8" fill="#10241a"/><ellipse cx="76" cy="60" rx="6" ry="8" fill="#10241a"/><path d="M55 76h10l-5 6z" fill="#ff6f91"/></svg>
-        <img src="gato.jpg" alt="Tu gatito" onerror="this.remove()">
+        <img src="gato1.jpg" alt="Gatito 1" onerror="this.remove()">
+        <span>🐱</span>
       </div>
-      <figcaption>Un gatito gris con rayas negras 🐱</figcaption>
+      <figcaption>Un gatito gris 🐱</figcaption>
+    </figure>
+    <figure>
+      <div class="slot wide">
+        <img src="gato2.jpg" alt="Gatito 2" onerror="this.remove()">
+        <span>🐱</span>
+      </div>
+      <figcaption>Otro gatito de la familia 🐱</figcaption>
     </figure>
   </div>
 </section>
 
 <section>
   <h2>Sopa de letras</h2>
-  <p>Toca las letras en orden, una junto a otra. Encuentra las 6 palabras.</p>
+  <p>Toca las letras en orden, una junto a otra. Hay palabras en horizontal, vertical y diagonal. Encuentra las 9 palabras.</p>
   <div id="sopa"></div>
   <div id="pal"></div>
   <p id="ganaste" hidden><b>¡Las encontraste todas! 🎉</b></p>
@@ -128,16 +281,18 @@ footer{text-align:center;padding:40px 20px 60px;opacity:.8}
   <h2>La rockola</h2>
   <div class="rock">
     <div class="disco" id="disco"></div>
-    <p style="text-align:center;margin-top:0">Rock en español, el favorito.</p>
+    <p style="text-align:center;margin-top:0">Mete 5 monedas y después elige una canción.</p>
+    <div id="creditos" style="text-align:center;font-weight:800;margin:10px 0">🪙 0 / 5 monedas</div>
     <div id="songs"></div>
     <p style="text-align:center"><button id="moneda">🪙 Meter moneda</button></p>
+    <p id="rockMsg" style="text-align:center;min-height:1.6em"></p>
   </div>
 </section>
 
 <section>
   <h2>¿Con cuál Arizona brindamos?</h2>
   <p>Todos los sabores, menos té negro ni té verde.</p>
-  <div style="text-align:center"><div id="lata">🥫</div></div>
+  <div id="lata-wrap"><div id="lata" role="button" tabindex="0" aria-label="Abrir lata de Arizona"></div></div>
   <div class="sabores" id="sabores"></div>
   <p id="dijo" style="min-height:1.6em"></p>
 </section>
@@ -188,57 +343,173 @@ function soplar(){
 }
 $('#soplar').onclick=soplar;
 document.querySelectorAll('.flame').forEach(f=>f.onclick=soplar);
-/* ---------- Cartas (edita aquí los gustos) ---------- */
+/* ---------- Globos ---------- */
+const globos=$('#globos');
+const colores=8;
+function crearGlobo(i,atado=false){
+  const b=document.createElement('div');
+  b.className='balloon'+(atado?' tied':'');
+  b.style.left=(8+Math.random()*84)+'%';
+  b.style.top=(8+Math.random()*78)+'%';
+  b.style.setProperty('--dx',(-35+Math.random()*70)+'px');
+  b.style.setProperty('--dur',(8+Math.random()*7)+'s');
+  b.style.setProperty('--vx',(-180+Math.random()*360)+'px');
+  if(atado){
+    b.dataset.tied='1';
+    b.style.left=(8+Math.random()*84)+'%';
+    b.style.top=(15+Math.random()*68)+'%';
+  }
+  b.addEventListener('click',()=>{
+    if(b.classList.contains('flying'))return;
+    b.classList.remove('tied');
+    b.classList.add('flying');
+    setTimeout(()=>{
+      b.remove();
+      crearGlobo(i,true);
+    },10000);
+  });
+  globos.appendChild(b);
+}
+for(let i=0;i<colores;i++)crearGlobo(i,i<5);
+
+/* ---------- Cartas con imágenes ---------- */
 const GUSTOS=[
- ['🍥','Anime','Naruto, Los 7 pecados capitales y Kaiju No. 8.'],
- ['🐱','Gatos','Un gatito gris con rayas negras es de la familia.'],
- ['🎸','Rock en español','El género que más te gusta.'],
- ['🎬','Cine mexicano','Los chicuarotes, Amarte duele y Perfume de violetas.'],
- ['🌟','La tumba de las luciérnagas','Una película que se queda contigo.'],
- ['🧩','Videojuegos','Puzzles y sopas de letras.'],
- ['💃','Bailar','Con coreografía y bailes folclóricos, sobre todo calabaceados.'],
- ['📚','Estudiar','Te gusta, y ya sabrás qué estudiar. Sin prisa.'],
- ['🎪','El Increíble Mundo Digital','Has visto algunos capítulos, y Kinger es tu favorito.'],
- ['🥤','Arizona','De todos los sabores, menos té negro y té verde.']
+ ['img/naruto.jpg','Anime','Naruto, Los 7 pecados capitales y Kaiju No. 8.'],
+ ['img/gatos.jpg','Gatos','Dos gatitos: uno en el recuadro pequeño y otro en el grande.'],
+ ['img/rock.jpg','Rock en español','El género que más te gusta.'],
+ ['img/cine.jpg','Cine mexicano','Los chicuarotes, Amarte duele y Perfume de violetas.'],
+ ['img/tumba.jpg','La tumba de las luciérnagas','Una película que se queda contigo.'],
+ ['img/videojuegos.jpg','Videojuegos','Puzzles y sopas de letras.'],
+ ['img/baile.jpg','Bailar','Con coreografía y bailes folclóricos, sobre todo calabaceados.'],
+ ['img/estudiar.jpg','Estudiar','Te gusta, y ya sabrás qué estudiar. Sin prisa.'],
+ ['img/digital.jpg','El Increíble Mundo Digital','Has visto algunos capítulos, y Kinger es tu favorito.'],
+ ['img/arizona.jpg','Arizona','De todos los sabores, menos té negro y té verde.']
 ];
-$('#cards').innerHTML=GUSTOS.map(g=>`<button class="card" aria-label="${g[1]}"><i class="fr">${g[0]}<b>${g[1]}</b></i><i class="bk">${g[2]}</i></button>`).join('');
+$('#cards').innerHTML=GUSTOS.map(g=>`
+ <button class="card gusto-card" aria-label="${g[1]}">
+   <i class="fr"><img src="${g[0]}" alt="" onerror="this.style.display='none'"><b>${g[1]}</b></i>
+   <i class="bk"><img src="${g[0]}" alt="" onerror="this.style.display='none'"><span>${g[2]}</span></i>
+ </button>`).join('');
 document.querySelectorAll('.card').forEach(c=>c.onclick=()=>c.classList.toggle('v'));
-/* ---------- Sopa de letras ---------- */
-const G=['NARUTOMR','KINGERPO','GATOSLEC','RANITAZK','BAILEXQV','ZYWUBHJD','PLMNKFSA','CDGHJXWT'];
-const W=['NARUTO','KINGER','GATOS','RANITA','BAILE','ROCK'];
+
+/* ---------- Sopa de letras difícil ---------- */
+const G=[
+ 'QXVNARUTOPLZ',
+ 'MBYFKINGERAD',
+ 'GQJHSDWEXLTO',
+ 'ATCROCKFNVPI',
+ 'TLPQGATOSXUZ',
+ 'OSMIEHRAKDBA',
+ 'SCEVYLFJRWIL',
+ 'HFZGUPMOCXER',
+ 'JADNBIQKSTMY',
+ 'XKCVWZHFELIO',
+ 'RPEQASNDJHNK',
+ 'UWYFMCBGVQTR'
+];
+const W=['NARUTO','KINGER','GATOS','RANITA','BAILE','ROCK','FELIZCUMPLEANOS','TEAMO','MININO'];
 const rev=w=>w.split('').reverse().join('');
+$('#sopa').style.gridTemplateColumns=`repeat(${G[0].length},1fr)`;
 $('#sopa').innerHTML=G.map((row,r)=>[...row].map((l,c)=>`<button class="cell" data-r="${r}" data-c="${c}">${l}</button>`).join('')).join('');
-$('#pal').innerHTML=W.map(w=>`<span id="w-${w}">${w}</span>`).join('');
+$('#pal').innerHTML=W.map(w=>`<span id="w-${w}">${w==='FELIZCUMPLEANOS'?'FELIZ CUMPLEAÑOS':w==='TEAMO'?'TE AMO':w==='MININO'?'MI NIÑO':w}</span>`).join('');
 let sel=[],found=0;
+const dirs=[[-1,-1],[-1,0],[-1,1],[0,-1],[0,1],[1,-1],[1,0],[1,1]];
 const prefijo=s=>W.some(w=>w.startsWith(s)||rev(w).startsWith(s));
 $('#sopa').onclick=e=>{
-  const c=e.target.closest('.cell');if(!c||c.classList.contains('ok'))return;
-  const r=+c.dataset.r,k=+c.dataset.c,l=sel[sel.length-1];
-  if(sel.some(x=>x.c===c)||(l&&Math.abs(l.r-r)+Math.abs(l.k-k)!==1))sel=[];
-  sel.push({r,k,c});
-  let s=sel.map(x=>x.c.textContent).join('');
-  if(!prefijo(s)){sel=[{r,k,c}];s=c.textContent;if(!prefijo(s))sel=[]}
-  document.querySelectorAll('.cell').forEach(x=>x.classList.remove('sel'));
-  sel.forEach(x=>x.c.classList.add('sel'));
-  const f=W.find(w=>w===s||rev(w)===s);
-  if(f){sel.forEach(x=>{x.c.classList.remove('sel');x.c.classList.add('ok')});$('#w-'+f).classList.add('ok');sel=[];
-    if(++found===W.length){$('#ganaste').hidden=false;boom()}}
+ const c=e.target.closest('.cell');if(!c||c.classList.contains('ok'))return;
+ const r=+c.dataset.r,k=+c.dataset.c,l=sel[sel.length-1];
+ if(sel.some(x=>x.c===c)){sel=[]}
+ else if(l){
+   const dr=r-l.r,dk=k-l.k;
+   const valido=dirs.some(([a,b])=>a===Math.sign(dr)&&b===Math.sign(dk)) && (Math.abs(dr)===Math.abs(dk)||dr===0||dk===0);
+   if(!valido)sel=[];
+ }
+ sel.push({r,k,c});
+ let s=sel.map(x=>x.c.textContent).join('');
+ if(!prefijo(s)){sel=[{r,k,c}];s=c.textContent;if(!prefijo(s))sel=[]}
+ document.querySelectorAll('.cell').forEach(x=>x.classList.remove('sel'));
+ sel.forEach(x=>x.c.classList.add('sel'));
+ const f=W.find(w=>w===s||rev(w)===s);
+ if(f){
+   sel.forEach(x=>{x.c.classList.remove('sel');x.c.classList.add('ok')});
+   $('#w-'+f).classList.add('ok');sel=[];
+   if(++found===W.length){$('#ganaste').hidden=false;boom()}
+ }
 };
-/* ---------- Rockola (agrega canciones aquí) ---------- */
+
+/* ---------- Rockola con 5 monedas + audio en la misma página ---------- */
+/* Coloca los MP3 en la carpeta audio/ con estos nombres.
+   El navegador detendrá el audio al cerrar/abandonar la página. */
 const CANCIONES=[
- {t:'Ni tú ni nadie',a:'Moenia'}
- // ,{t:'Nombre de la canción',a:'Artista'}
+ {t:'Ni tú ni nadie',a:'Moenia',src:'audio/ni-tu-ni-nadie.mp3'}
+ // Agrega más: {t:'Canción',a:'Artista',src:'audio/cancion.mp3'}
 ];
-$('#songs').innerHTML=CANCIONES.map(s=>`<div class="song"><span><b>${s.t}</b><br>${s.a}</span><a target="_blank" rel="noopener" href="https://www.youtube.com/results?search_query=${encodeURIComponent(s.t+' '+s.a)}">▶ Escuchar</a></div>`).join('');
-$('#moneda').onclick=()=>{$('#disco').classList.toggle('on')};
-/* ---------- Arizona ---------- */
+let monedas=0, audioActual=null, cancionActual=null;
+$('#songs').innerHTML=CANCIONES.map((s,i)=>`
+ <div class="song" data-i="${i}">
+   <span><b>${s.t}</b><br>${s.a}</span>
+   <button class="play" data-i="${i}">▶ Reproducir</button>
+ </div>`).join('');
+function actualizarCreditos(){
+ $('#creditos').textContent=`🪙 ${monedas} / 5 monedas`;
+}
+$('#moneda').onclick=()=>{
+ if(monedas<5)monedas++;
+ actualizarCreditos();
+ if(monedas===5)$('#rockMsg').textContent='¡Listo! Ya puedes escoger una canción.';
+};
+$('#songs').onclick=e=>{
+ const b=e.target.closest('.play');if(!b)return;
+ if(monedas<5){$('#rockMsg').textContent='Primero mete las 5 monedas 🪙';return}
+ const s=CANCIONES[+b.dataset.i];
+ if(audioActual){audioActual.pause();audioActual.currentTime=0}
+ audioActual=new Audio(s.src);
+ audioActual.volume=.9;
+ audioActual.play().then(()=>{
+   document.querySelectorAll('.song').forEach(x=>x.classList.remove('active'));
+   b.closest('.song').classList.add('active');
+   $('#disco').classList.add('on');
+   $('#rockMsg').textContent='Sonando: '+s.t+' — '+s.a;
+ }).catch(()=>{
+   $('#rockMsg').textContent='No se encontró el MP3. Revisa la carpeta audio/.';
+ });
+ audioActual.onended=()=>{
+   $('#disco').classList.remove('on');
+   b.closest('.song').classList.remove('active');
+ };
+};
+addEventListener('pagehide',()=>{if(audioActual){audioActual.pause();audioActual.src=''}});
+
+/* ---------- Arizona interactiva ---------- */
 const SAB=[['Mucho Mango','🥭'],['Sandía','🍉'],['Fruit Punch','🍹'],['Limonada','🍋'],['Uva','🍇'],['Kiwi fresa','🥝']];
 $('#sabores').innerHTML=SAB.map((s,i)=>`<button data-i="${i}">${s[0]}</button>`).join('');
+let lataAbierta=false;
+function sonidoLata(){
+ const AC=window.AudioContext||window.webkitAudioContext;
+ if(!AC)return;
+ const ac=new AC(),o=ac.createOscillator(),g=ac.createGain();
+ o.type='sawtooth';o.frequency.setValueAtTime(220,ac.currentTime);
+ o.frequency.exponentialRampToValueAtTime(80,ac.currentTime+.16);
+ g.gain.setValueAtTime(.001,ac.currentTime);
+ g.gain.exponentialRampToValueAtTime(.18,ac.currentTime+.02);
+ g.gain.exponentialRampToValueAtTime(.001,ac.currentTime+.2);
+ o.connect(g);g.connect(ac.destination);o.start();o.stop(ac.currentTime+.21);
+}
+function abrirLata(){
+ lataAbierta=!lataAbierta;
+ $('#lata').classList.toggle('abierta',lataAbierta);
+ $('#lata').classList.remove('pulse');void $('#lata').offsetWidth;$('#lata').classList.add('pulse');
+ if(lataAbierta){sonidoLata();$('#dijo').textContent='¡Psssh! La lata está abierta 🥤';}
+ else $('#dijo').textContent='La lata quedó cerrada.';
+}
+$('#lata').onclick=abrirLata;
+$('#lata').onkeydown=e=>{if(e.key==='Enter'||e.key===' ')abrirLata()};
 $('#sabores').onclick=e=>{
-  const b=e.target.closest('button');if(!b)return;
-  document.querySelectorAll('#sabores button').forEach(x=>x.classList.remove('a'));b.classList.add('a');
-  const s=SAB[b.dataset.i];$('#lata').textContent=s[1];
-  $('#dijo').textContent='Isai eligió '+s[0]+'. ¡Salud! 🥤';
+ const b=e.target.closest('button');if(!b)return;
+ document.querySelectorAll('#sabores button').forEach(x=>x.classList.remove('a'));b.classList.add('a');
+ const s=SAB[b.dataset.i];
+ $('#dijo').textContent='Isai eligió '+s[0]+'. ¡Salud! 🥤';
+ if(!lataAbierta)abrirLata();
 };
 /* ---------- Baile ---------- */
 $('#bailar').onclick=()=>{const b=$('#baile');b.classList.toggle('on');$('#bailar').textContent=b.classList.contains('on')?'Parar':'¡A bailar!'};
